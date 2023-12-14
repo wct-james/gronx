@@ -1,13 +1,9 @@
-# adhocore/gronx
+# wct-james/gronx
+Forked from [adhocore/gronx](https://github.com/adhocore/gronx)
 
-[![Latest Version](https://img.shields.io/github/release/adhocore/gronx.svg?style=flat-square)](https://github.com/adhocore/gronx/releases)
+- The reason for this fork is to support `isDue()` with lower granularity.
+
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Go Report](https://goreportcard.com/badge/github.com/adhocore/gronx)](https://goreportcard.com/report/github.com/adhocore/gronx)
-[![Test](https://github.com/adhocore/gronx/actions/workflows/test-action.yml/badge.svg)](https://github.com/adhocore/gronx/actions/workflows/test-action.yml)
-[![Lint](https://github.com/adhocore/gronx/actions/workflows/lint-action.yml/badge.svg)](https://github.com/adhocore/gronx/actions/workflows/lint-action.yml)
-[![Codecov](https://img.shields.io/codecov/c/github/adhocore/gronx/main.svg?style=flat-square)](https://codecov.io/gh/adhocore/gronx)
-[![Support](https://img.shields.io/static/v1?label=Support&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/adhocore)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Lightweight+fast+and+deps+free+cron+expression+parser+for+Golang&url=https://github.com/adhocore/gronx&hashtags=go,golang,parser,cron,cronexpr,cronparser)
 
 `gronx` is Golang [cron expression](#cron-expression) parser ported from [adhocore/cron-expr](https://github.com/adhocore/php-cron-expr) with task runner
 and daemon that supports crontab like task list file. Use it programatically in Golang or as standalone binary instead of crond. If that's not enough, you can use gronx to find the next (`NextTick()`) or previous (`PrevTick()`) run time of an expression from any arbitrary point of time.
@@ -17,12 +13,13 @@ and daemon that supports crontab like task list file. Use it programatically in 
 - Built in crontab like daemon.
 - Supports time granularity of Seconds.
 
-Find gronx in [pkg.go.dev](https://pkg.go.dev/github.com/adhocore/gronx).
+
+> Not published yet - Find gronx in [pkg.go.dev](https://pkg.go.dev/github.com/adhocore/gronx).
 
 ## Installation
 
 ```sh
-go get -u github.com/adhocore/gronx
+go get -u github.com/wct-james/gronx
 ```
 
 ## Usage
@@ -31,7 +28,7 @@ go get -u github.com/adhocore/gronx
 import (
 	"time"
 
-	"github.com/adhocore/gronx"
+	"github.com/wct-james/gronx"
 )
 
 gron := gronx.New()
@@ -121,7 +118,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/adhocore/gronx/pkg/tasker"
+	"github.com/wct-james/gronx/pkg/tasker"
 )
 
 func main() {
@@ -184,10 +181,10 @@ It can also be used as standalone task daemon instead of programmatic usage for 
 
 First, just install tasker command:
 ```sh
-go install github.com/adhocore/gronx/cmd/tasker@latest
+go install github.com/wct-james/gronx/cmd/tasker@latest
 ```
 
-Or you can also download latest prebuilt binary from [release](https://github.com/adhocore/gronx/releases/latest) for platform of your choice.
+Or you can also download latest prebuilt binary from [release](https://github.com/wct-james/gronx/releases/latest) for platform of your choice.
 
 Then prepare a taskfile ([example](./tests/../test/taskfile.txt)) in crontab format
 (or can even point to existing crontab).
@@ -310,19 +307,8 @@ Following modifiers supported
 ---
 ## License
 
-> &copy; [MIT](./LICENSE) | 2021-2099, Jitendra Adhikari
+> &copy; [MIT](./LICENSE) | 2021-2099
 
 ## Credits
 
-This project is ported from [adhocore/cron-expr](https://github.com/adhocore/php-cron-expr) and
-release managed by [please](https://github.com/adhocore/please).
-
----
-### Other projects
-
-My other golang projects you might find interesting and useful:
-
-- [**urlsh**](https://github.com/adhocore/urlsh) - URL shortener and bookmarker service with UI, API, Cache, Hits Counter and forwarder using postgres and redis in backend, bulma in frontend; has [web](https://urlssh.xyz) and cli client
-- [**fast**](https://github.com/adhocore/fast) - Check your internet speed with ease and comfort right from the terminal
-- [**goic**](https://github.com/adhocore/goic) - Go Open ID Connect, is OpenID connect client library for Golang, supports the Authorization Code Flow of OpenID Connect specification.
-- [**chin**](https://github.com/adhocore/chin) - A Go lang command line tool to show a spinner as user waits for some long running jobs to finish.
+This project is forked from [adhocore/gronx](https://github.com/adhocore/gronx)
