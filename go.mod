@@ -1,3 +1,3 @@
-module github.com/adhocore/gronx
+module github.com/wct-james/gronx
 
-go 1.13
+go 1.21

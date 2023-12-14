@@ -11,9 +11,9 @@ func TestBatch(t *testing.T) {
 
 	t.Run("batch no error", func(t *testing.T) {
 		ref := time.Now()
-		exprs := []string{"@everysecond", "* * * * * *", "*  *  *  *  *  *"}
-		exprs = append(exprs, fmt.Sprintf("* %d * * * * %d", ref.Minute(), ref.Year()))
-		exprs = append(exprs, fmt.Sprintf("* * * * * * %d-%d", ref.Year()-1, ref.Year()+1))
+		exprs := []string{"* * * * * *", "*  *  *  *  *  *"}
+		exprs = append(exprs, fmt.Sprintf("%d * * * * %d", ref.Minute(), ref.Year()))
+		exprs = append(exprs, fmt.Sprintf("* * * * * %d-%d", ref.Year()-1, ref.Year()+1))
 
 		for _, expr := range gron.BatchDue(exprs) {
 			if expr.Err != nil {

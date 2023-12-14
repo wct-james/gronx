@@ -1,7 +1,7 @@
 # wct-james/gronx
-Forked from [adhocore/gronx](https://github.com/adhocore/gronx)
+Forked from [adhocore/gronx](https://github.com/wct-james/gronx)
 
-- The reason for this fork is to support `isDue()` with lower granularity.
+- The reason for this fork is to remove support for seconds granularity
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
@@ -11,10 +11,9 @@ and daemon that supports crontab like task list file. Use it programatically in 
 - Zero dependency.
 - Very **fast** because it bails early in case a segment doesn't match.
 - Built in crontab like daemon.
-- Supports time granularity of Seconds.
 
 
-> Not published yet - Find gronx in [pkg.go.dev](https://pkg.go.dev/github.com/adhocore/gronx).
+> Not published yet - Find gronx in [pkg.go.dev](https://pkg.go.dev/github.com/wct-james/gronx).
 
 ## Installation
 
@@ -311,4 +310,4 @@ Following modifiers supported
 
 ## Credits
 
-This project is forked from [adhocore/gronx](https://github.com/adhocore/gronx)
+This project is forked from [adhocore/gronx](https://github.com/wct-james/gronx)

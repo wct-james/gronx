@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/adhocore/gronx"
+	"github.com/wct-james/gronx"
 )
 
 // MustParseTaskfile either parses taskfile from given Option.

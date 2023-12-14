@@ -95,18 +95,16 @@ func (c *SegmentChecker) isOffsetDue(offset string, val, pos int) (bool, error) 
 func valueByPos(ref time.Time, pos int) (val int) {
 	switch pos {
 	case 0:
-		val = ref.Second()
-	case 1:
 		val = ref.Minute()
-	case 2:
+	case 1:
 		val = ref.Hour()
-	case 3:
+	case 2:
 		val = ref.Day()
-	case 4:
+	case 3:
 		val = int(ref.Month())
-	case 5:
+	case 4:
 		val = int(ref.Weekday())
-	case 6:
+	case 5:
 		val = ref.Year()
 	}
 	return
@@ -115,17 +113,17 @@ func valueByPos(ref time.Time, pos int) (val int) {
 func boundsByPos(pos int) (bounds []int) {
 	bounds = []int{0, 0}
 	switch pos {
-	case 0, 1:
+	case 0:
 		bounds = []int{0, 59}
-	case 2:
+	case 1:
 		bounds = []int{0, 23}
-	case 3:
+	case 2:
 		bounds = []int{1, 31}
-	case 4:
+	case 3:
 		bounds = []int{1, 12}
-	case 5:
+	case 4:
 		bounds = []int{0, 7}
-	case 6:
+	case 5:
 		bounds = []int{1, 9999}
 	}
 	return

@@ -15,7 +15,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/adhocore/gronx"
+	"github.com/wct-james/gronx"
 )
 
 // Option is the config options for Tasker.

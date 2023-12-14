@@ -1,11 +1,11 @@
 # adhocore/gronx/pkg/tasker
 
-[![Latest Version](https://img.shields.io/github/release/adhocore/gronx.svg?style=flat-square)](https://github.com/adhocore/gronx/releases)
+[![Latest Version](https://img.shields.io/github/release/adhocore/gronx.svg?style=flat-square)](https://github.com/wct-james/gronx/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Go Report](https://goreportcard.com/badge/github.com/adhocore/gronx)](https://goreportcard.com/report/github.com/adhocore/gronx)
-[![Test](https://github.com/adhocore/gronx/actions/workflows/test-action.yml/badge.svg)](https://github.com/adhocore/gronx/actions/workflows/test-action.yml)
+[![Go Report](https://goreportcard.com/badge/github.com/wct-james/gronx)](https://goreportcard.com/report/github.com/wct-james/gronx)
+[![Test](https://github.com/wct-james/gronx/actions/workflows/test-action.yml/badge.svg)](https://github.com/wct-james/gronx/actions/workflows/test-action.yml)
 [![Donate](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square)](https://www.paypal.me/ji10/50usd)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Lightweight+fast+and+deps+free+cron+expression+parser+for+Golang&url=https://github.com/adhocore/gronx&hashtags=go,golang,parser,cron,cronexpr,cronparser)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Lightweight+fast+and+deps+free+cron+expression+parser+for+Golang&url=https://github.com/wct-james/gronx&hashtags=go,golang,parser,cron,cronexpr,cronparser)
 
 
 `tasker` is cron expression based task scheduler and/or daemon for programamtic usage in Golang (tested on v1.13 and above) or independent standalone usage.
@@ -13,7 +13,7 @@
 ## Installation
 
 ```sh
-go get -u github.com/adhocore/gronx/cmd/tasker
+go get -u github.com/wct-james/gronx/cmd/tasker
 ```
 ---
 ## Usage
@@ -29,7 +29,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/adhocore/gronx/pkg/tasker"
+	"github.com/wct-james/gronx/pkg/tasker"
 )
 
 func main() {
@@ -91,12 +91,12 @@ It can also be used as standalone task daemon instead of programmatic usage for 
 
 First, just install tasker command:
 ```sh
-go install github.com/adhocore/gronx/cmd/tasker@latest
+go install github.com/wct-james/gronx/cmd/tasker@latest
 ```
 
-Or you can also download latest prebuilt binary from [release](https://github.com/adhocore/gronx/releases/latest) for platform of your choice.
+Or you can also download latest prebuilt binary from [release](https://github.com/wct-james/gronx/releases/latest) for platform of your choice.
 
-Then prepare a taskfile ([example](https://github.com/adhocore/gronx/blob/main/test/taskfile.txt)) in crontab format
+Then prepare a taskfile ([example](https://github.com/wct-james/gronx/blob/main/test/taskfile.txt)) in crontab format
 (or can even point to existing crontab).
 > `user` is not supported: it is just cron expr followed by the command.
 
@@ -149,12 +149,12 @@ you can't do chaining with `cmd1 && cmd2` but rather `cmd1 ; cmd2`.
 ---
 ## Understanding Cron Expression
 
-Checkout [gronx](https://github.com/adhocore/gronx#cron-expression) docs on cron expression.
+Checkout [gronx](https://github.com/wct-james/gronx#cron-expression) docs on cron expression.
 
 ---
 ## License
 
-> &copy; [MIT](https://github.com/adhocore/gronx/blob/main/LICENSE) | 2021-2099, Jitendra Adhikari
+> &copy; [MIT](https://github.com/wct-james/gronx/blob/main/LICENSE) | 2021-2099, Jitendra Adhikari
 
 ## Credits
 
