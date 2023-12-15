@@ -104,8 +104,6 @@ In crontab just put one entry with `* * * * *` which points to your Go entry poi
 Then in that entry point you would invoke different tasks if the corresponding Cron expr is due.
 Simple map structure would work for this.
 
-Check the section below for more sophisticated way of managing tasks automatically using `gronx` daemon called `tasker`.
-
 ---
 ### Cron Expression
 
