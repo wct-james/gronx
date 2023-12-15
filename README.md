@@ -107,162 +107,31 @@ Simple map structure would work for this.
 Check the section below for more sophisticated way of managing tasks automatically using `gronx` daemon called `tasker`.
 
 ---
-### Go Tasker
-
-Tasker is a task manager that can be programatically used in Golang applications. It runs as a daemon and invokes tasks scheduled with cron expression:
-```go
-package main
-
-import (
-	"context"
-	"time"
-
-	"github.com/wct-james/gronx/pkg/tasker"
-)
-
-func main() {
-	taskr := tasker.New(tasker.Option{
-		Verbose: true,
-		// optional: defaults to local
-		Tz:      "Asia/Bangkok",
-		// optional: defaults to stderr log stream
-		Out:     "/full/path/to/output-file",
-	})
-
-	// add task to run every minute
-	taskr.Task("* * * * *", func(ctx context.Context) (int, error) {
-		// do something ...
-
-		// then return exit code and error, for eg: if everything okay
-		return 0, nil
-	}).Task("*/5 * * * *", func(ctx context.Context) (int, error) { // every 5 minutes
-		// you can also log the output to Out file as configured in Option above:
-		taskr.Log.Printf("done something in %d s", 2)
-
-		return 0, nil
-	})
-
-	// run task without overlap, set concurrent flag to false:
-	concurrent := false
-	taskr.Task("* * * * * *", , tasker.Taskify("sleep 2", tasker.Option{}), concurrent)
-
-	// every 10 minute with arbitrary command
-	taskr.Task("@10minutes", taskr.Taskify("command --option val -- args", tasker.Option{Shell: "/bin/sh -c"}))
-
-	// ... add more tasks
-
-	// optionally if you want tasker to stop after 2 hour, pass the duration with Until():
-	taskr.Until(2 * time.Hour)
-
-	// finally run the tasker, it ticks sharply on every minute and runs all the tasks due on that time!
-	// it exits gracefully when ctrl+c is received making sure pending tasks are completed.
-	taskr.Run()
-}
-```
-
-#### Concurrency
-
-By default the tasks can run concurrently i.e if previous run is still not finished
-but it is now due again, it will run again.
-If you want to run only one instance of a task at a time, set concurrent flag to false:
-
-```go
-taskr := tasker.New(tasker.Option{})
-
-concurrent := false
-expr, task := "* * * * * *", tasker.Taskify("php -r 'sleep(2);'")
-taskr.Task(expr, task, concurrent)
-```
-
-### Task Daemon
-
-It can also be used as standalone task daemon instead of programmatic usage for Golang application.
-
-First, just install tasker command:
-```sh
-go install github.com/wct-james/gronx/cmd/tasker@latest
-```
-
-Or you can also download latest prebuilt binary from [release](https://github.com/wct-james/gronx/releases/latest) for platform of your choice.
-
-Then prepare a taskfile ([example](./tests/../test/taskfile.txt)) in crontab format
-(or can even point to existing crontab).
-> `user` is not supported: it is just cron expr followed by the command.
-
-Finally run the task daemon like so
-```
-tasker -file path/to/taskfile
-```
-> You can pass more options to control the behavior of task daemon, see below.
-
-####  Tasker command options:
-
-```txt
--file string <required>
-    The task file in crontab format
--out string
-    The fullpath to file where output from tasks are sent to
--shell string
-    The shell to use for running tasks (default "/usr/bin/bash")
--tz string
-    The timezone to use for tasks (default "Local")
--until int
-    The timeout for task daemon in minutes
--verbose
-    The verbose mode outputs as much as possible
-```
-
-Examples:
-```sh
-tasker -verbose -file path/to/taskfile -until 120 # run until next 120min (i.e 2hour) with all feedbacks echoed back
-tasker -verbose -file path/to/taskfile -out path/to/output # with all feedbacks echoed to the output file
-tasker -tz America/New_York -file path/to/taskfile -shell zsh # run all tasks using zsh shell based on NY timezone
-```
-
-> File extension of taskfile for (`-file` option) does not matter: can be any or none.
-> The directory for outfile (`-out` option) must exist, file is created by task daemon.
-
-> Same timezone applies for all tasks currently and it might support overriding timezone per task in future release.
-
-#### Notes on Windows
-
-In Windows if it doesn't find `bash.exe` or `git-bash.exe` it will use `powershell`.
-`powershell` may not be compatible with Unix flavored commands. Also to note:
-you can't do chaining with `cmd1 && cmd2` but rather `cmd1 ; cmd2`.
-
----
 ### Cron Expression
 
-A complete cron expression consists of 7 segments viz:
-```
-<second> <minute> <hour> <day> <month> <weekday> <year>
-```
-
-However only 5 will do and this is most commonly used. 5 segments are interpreted as:
+Cron expression is most commonly made of 5 segments. These segments are interpreted as:
 ```
 <minute> <hour> <day> <month> <weekday>
 ```
-in which case a default value of 0 is prepended for `<second>` position.
 
 In a 6 segments expression, if 6th segment matches `<year>` (i.e 4 digits at least) it will be interpreted as:
 ```
 <minute> <hour> <day> <month> <weekday> <year>
 ```
-and a default value of 0 is prepended for `<second>` position.
 
 For each segments you can have **multiple choices** separated by comma:
-> Eg: `0 0,30 * * * *` means either 0th or 30th minute.
+> Eg: `0,30 * * * *` means either 0th or 30th minute.
 
 To specify **range of values** you can use dash:
-> Eg: `0 10-15 * * * *` means 10th, 11th, 12th, 13th, 14th and 15th minute.
+> Eg: `10-15 * * * *` means 10th, 11th, 12th, 13th, 14th and 15th minute.
 
 To specify **range of step** you can combine a dash and slash:
-> Eg: `0 10-15/2 * * * *` means every 2 minutes between 10 and 15 i.e 10th, 12th and 14th minute.
+> Eg: `10-15/2 * * * *` means every 2 minutes between 10 and 15 i.e 10th, 12th and 14th minute.
 
 For the `<day>` and `<weekday>` segment, there are additional [**modifiers**](#modifiers) (optional).
 
 And if you want, you can mix the multiple choices, ranges and steps in a single expression:
-> `0 5,12-20/4,55 * * * *` matches if any one of `5` or `12-20/4` or `55` matches the minute.
+> `5,12-20/4,55 * * * *` matches if any one of `5` or `12-20/4` or `55` matches the minute.
 
 ### Real Abbreviations
 
@@ -282,9 +151,6 @@ Following tags are available and they are converted to real cron expressions bef
 - *@15minutes* - every 15 minutes
 - *@30minutes* - every 30 minutes
 - *@always* - every minute
-- *@everysecond* - every second
-
-> For BC reasons, `@always` still means every minute for now, in future release it may mean every seconds instead.
 
 ```go
 // Use tags like so:
@@ -306,8 +172,8 @@ Following modifiers supported
 ---
 ## License
 
-> &copy; [MIT](./LICENSE) | 2021-2099
+> &copy; [MIT](./LICENSE) | 2021-2099 Will James
 
 ## Credits
 
-This project is forked from [adhocore/gronx](https://github.com/wct-james/gronx)
+This project is forked from [adhocore/gronx](https://github.com/adhocore/gronx)
