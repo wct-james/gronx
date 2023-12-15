@@ -12,15 +12,15 @@ func PrevTick(expr string, inclRefTime bool) (time.Time, error) {
 
 // PrevTickBefore gives previous run time before given reference time
 func PrevTickBefore(expr string, start time.Time, inclRefTime bool) (time.Time, error) {
-	gron, prev := New(), start.Truncate(time.Second)
+	gron, prev := New(), start.Truncate(time.Minute)
 	due, err := gron.IsDue(expr, start)
 	if err != nil || (due && inclRefTime) {
 		return prev, err
 	}
 
 	segments, _ := Segments(expr)
-	if len(segments) > 6 && isUnreachableYear(segments[6], prev, inclRefTime, true) {
-		return prev, fmt.Errorf("unreachable year segment: %s", segments[6])
+	if len(segments) > 5 && isUnreachableYear(segments[5], prev, inclRefTime, true) {
+		return prev, fmt.Errorf("unreachable year segment: %s", segments[5])
 	}
 
 	prev, err = loop(gron, segments, prev, inclRefTime, true)

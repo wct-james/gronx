@@ -8,15 +8,15 @@ import (
 )
 
 func TestPrevTick(t *testing.T) {
-	exp := "* * * * * *"
+	exp := "* * * * *"
 	t.Run("prev tick "+exp, func(t *testing.T) {
-		ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:02")
+		ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:00")
 		prev, _ := PrevTickBefore(exp, ref, true)
-		if prev.Format(FullDateFormat) != "2020-02-02 02:02:02" {
+		if prev.Format(FullDateFormat) != "2020-02-02 02:02:00" {
 			t.Errorf("[incl] expected %v, got %v", ref, prev)
 		}
 
-		expect := time.Now().Add(-time.Second).Format(FullDateFormat)
+		expect := time.Now().Add(-time.Minute).Truncate(time.Minute).Format(FullDateFormat)
 		prev, _ = PrevTick(exp, false)
 		if expect != prev.Format(FullDateFormat) {
 			t.Errorf("expected %v, got %v", expect, prev)
@@ -24,9 +24,9 @@ func TestPrevTick(t *testing.T) {
 	})
 
 	t.Run("prev tick excl "+exp, func(t *testing.T) {
-		ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:02")
+		ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:00")
 		prev, _ := PrevTickBefore(exp, ref, false)
-		if prev.Format(FullDateFormat) != "2020-02-02 02:02:01" {
+		if prev.Format(FullDateFormat) != "2020-02-02 02:01:00" {
 			t.Errorf("[excl] expected %v, got %v", ref, prev)
 		}
 	})
@@ -34,12 +34,15 @@ func TestPrevTick(t *testing.T) {
 
 func TestPrevTickBefore(t *testing.T) {
 	t.Run("prev tick before", func(t *testing.T) {
-		t.Run("seconds precision", func(t *testing.T) {
-			ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:02")
-			next, _ := NextTickAfter("*/5 * * * * *", ref, false)
-			prev, _ := PrevTickBefore("*/5 * * * * *", next, false)
-			if prev.Format(FullDateFormat) != "2020-02-02 02:02:00" {
-				t.Errorf("next > prev should be %s, got %s", "2020-02-02 02:02:00", prev)
+		t.Run("minutes precision", func(t *testing.T) {
+			ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:00")
+			next, _ := NextTickAfter("*/5 * * * *", ref, false)
+			if next.Format(FullDateFormat) != "2020-02-02 02:05:00" {
+				t.Errorf("next tick should be: %s, got: %s", "2020-02-02 02:05:00", next)
+			}
+			prev, _ := PrevTickBefore("*/5 * * * *", next, false)
+			if prev.Format(FullDateFormat) != "2020-02-02 02:00:00" {
+				t.Errorf("next > prev should be %s, got %s", "2020-02-02 02:00:00", prev)
 			}
 		})
 

@@ -7,7 +7,7 @@ import (
 )
 
 func TestNextTick(t *testing.T) {
-	exp := "* * * * * *"
+	exp := "* * * * *"
 	t.Run("next tick incl "+exp, func(t *testing.T) {
 		now := time.Now().Format(FullDateFormat)
 		next, _ := NextTick(exp, true)
@@ -17,7 +17,7 @@ func TestNextTick(t *testing.T) {
 		}
 	})
 	t.Run("next tick excl "+exp, func(t *testing.T) {
-		expect := time.Now().Add(time.Second).Format(FullDateFormat)
+		expect := time.Now().Add(time.Minute).Truncate(time.Minute).Format(FullDateFormat)
 		next, _ := NextTick(exp, false)
 		tick := next.Format(FullDateFormat)
 		if expect != tick {
@@ -28,11 +28,14 @@ func TestNextTick(t *testing.T) {
 
 func TestNextTickAfter(t *testing.T) {
 	t.Run("next run after", func(t *testing.T) {
-		t.Run("seconds precision", func(t *testing.T) {
-			ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:02")
-			next, _ := NextTickAfter("*/5 * * * * *", ref, false)
-			if next.Format(FullDateFormat) != "2020-02-02 02:02:05" {
-				t.Errorf("2020-02-02 02:02:02 next tick should be 2020-02-02 02:02:05")
+		t.Run("minutes precision", func(t *testing.T) {
+			ref, _ := time.Parse(FullDateFormat, "2020-02-02 02:02:00")
+			next, err := NextTickAfter("*/5 * * * *", ref, false)
+			if err != nil {
+				t.Errorf(err.Error())
+			}
+			if next.Format(FullDateFormat) != "2020-02-02 02:05:00" {
+				t.Errorf("2020-02-02 02:02:00 next tick should be 2020-02-02 02:05:00, got %s", next)
 			}
 		})
 

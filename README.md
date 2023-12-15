@@ -1,19 +1,19 @@
 # wct-james/gronx
 Forked from [adhocore/gronx](https://github.com/wct-james/gronx)
 
-- The reason for this fork is to remove support for seconds granularity
-
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-`gronx` is Golang [cron expression](#cron-expression) parser ported from [adhocore/cron-expr](https://github.com/adhocore/php-cron-expr) with task runner
-and daemon that supports crontab like task list file. Use it programatically in Golang or as standalone binary instead of crond. If that's not enough, you can use gronx to find the next (`NextTick()`) or previous (`PrevTick()`) run time of an expression from any arbitrary point of time.
+> The reason for this fork is to make the implementation granular to minutes, rather than seconds. 
+> 
+> This is so that the package aligns more closely to the [Posix crontab specification](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html)
+
+`gronx` is Golang [cron expression](#cron-expression) parser ported from [adhocore/cron-expr](https://github.com/adhocore/php-cron-expr). You can also use gronx to find the next (`NextTick()`) or previous (`PrevTick()`) run time of an expression from any arbitrary point of time.
 
 - Zero dependency.
 - Very **fast** because it bails early in case a segment doesn't match.
-- Built in crontab like daemon.
 
 
-> Not published yet - Find gronx in [pkg.go.dev](https://pkg.go.dev/github.com/wct-james/gronx).
+Find gronx in [pkg.go.dev](https://pkg.go.dev/github.com/wct-james/gronx).
 
 ## Installation
 
