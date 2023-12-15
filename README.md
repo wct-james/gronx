@@ -1,7 +1,10 @@
 # wct-james/gronx
-Forked from [adhocore/gronx](https://github.com/wct-james/gronx)
+Forked from [adhocore/gronx](https://github.com/adhocore/gronx)
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Go Report](https://goreportcard.com/badge/github.com/wct-james/gronx)](https://goreportcard.com/report/github.com/wct-james/gronx)
+[![Test](https://github.com/wct-james/gronx/actions/workflows/tests.yml/badge.svg)](https://github.com/wct-james/gronx/actions/workflows/tests.yml)
+[![Codecov](https://img.shields.io/codecov/c/github/wct-james/gronx/main.svg?style=flat-square)](https://codecov.io/gh/wct-james/gronx)
 
 > The reason for this fork is to make the implementation granular to minutes, rather than seconds. 
 > 
