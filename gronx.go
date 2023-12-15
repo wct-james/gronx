@@ -29,7 +29,6 @@ var expressions = map[string]string{
 
 // SpaceRe is regex for whitespace.
 var SpaceRe = regexp.MustCompile(`\s+`)
-var yearRe = regexp.MustCompile(`\d{4}`)
 
 func normalize(expr string) []string {
 	expr = strings.Trim(expr, " \t")
