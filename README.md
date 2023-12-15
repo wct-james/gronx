@@ -48,7 +48,7 @@ gron.IsDue(expr, time.Date(2021, time.April, 1, 1, 1, 0, 0, time.UTC)) // true|f
 If you have multiple cron expressions to check due on same reference time use `BatchDue()`:
 ```go
 gron := gronx.New()
-exprs := []string{"* * * * *", "0 */5 * * * *"}
+exprs := []string{"* * * * *", "*/5 * * * *"}
 
 // gives []gronx.Expr{} array, each item has Due flag and Err enountered.
 dues := gron.BatchDue(exprs)
