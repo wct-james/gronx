@@ -73,7 +73,6 @@ func (g *Gronx) isDue(expr string, ref time.Time) bool {
 }
 
 // Segments splits expr into array of cron parts.
-// If expression contains 5 parts or 6th part is year like, it prepends a second.
 // It returns array or error.
 func Segments(expr string) ([]string, error) {
 	segs := normalize(expr)
@@ -81,14 +80,6 @@ func Segments(expr string) ([]string, error) {
 	if slen < 5 || slen > 6 {
 		return []string{}, errors.New("expr should contain 5-6 segments separated by space")
 	}
-
-	// Don't prepend second
-
-	//// Prepend second if required
-	//prepend := slen == 5 || (slen == 6 && yearRe.MatchString(segs[5]))
-	//if prepend {
-	//	segs = append([]string{"0"}, segs...)
-	//}
 
 	return segs, nil
 }
