@@ -8,7 +8,8 @@ Forked from [adhocore/gronx](https://github.com/adhocore/gronx)
 
 > The reason for this fork is to make the implementation granular to minutes, rather than seconds. 
 > 
-> This is so that the package aligns more closely to the [Posix crontab specification](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html)
+> This is so that the package aligns more closely to the [Posix crontab specification](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html).
+> Whilst years remains, the `isDue()` method now returns true at any point in a due minute, rather than at the due second. 
 
 `gronx` is Golang [cron expression](#cron-expression) parser ported from [adhocore/cron-expr](https://github.com/adhocore/php-cron-expr). You can also use gronx to find the next (`NextTick()`) or previous (`PrevTick()`) run time of an expression from any arbitrary point of time.
 
