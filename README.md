@@ -173,7 +173,7 @@ Following modifiers supported
 ---
 ## License
 
-> &copy; [MIT](./LICENSE) | 2021-2099 Will James
+> &copy; [MIT](./LICENSE)
 
 ## Credits
 
